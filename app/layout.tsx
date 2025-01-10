@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import "../globals.css";
+import "./globals.css";
 import SideBarComponent from "./Components/Sidebar-Component/Sidebar-Component";
 
 const poppins = Poppins({
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${poppins.className} antialiased`}>
-        <div className="flex">
+        <div className="flex gap-8">
           <SideBarComponent />
           {children}
         </div>
