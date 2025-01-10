@@ -1,15 +1,27 @@
+import { LayoutGrid, ShoppingCart, BadgeDollarSign } from "lucide-react";
+//Components
+import SideBarButton from "../Sidebar-Button-Component/Sidebar-Button-Component";
+
 const SideBarComponent = () => {
   return (
-    <div className="w-64 bg-white h-screen">
-      <div className="px-16 py-4">
-        {/* IMAGEM*/}
-        <h1 className="text-2xl font-bold text-black">STOCKLY</h1>
+    <div className="h-screen w-64 bg-white">
+      <div className="px-8 py-6">
+        <h1 className="text-2xl font-bold">STOCKLY</h1>
       </div>
-      <div className="flex flex-col p-2 gap-2">
+      <div className="flex flex-col gap-1 p-2">
+        <SideBarButton href="/">
+          <LayoutGrid size={20} />
+          Dasboard
+        </SideBarButton>
         {/*BOTOES*/}
-        <button className=" px-6 py-3 rounded">Dasboard</button>
-        <button className=" px-6 py-3 rounded"> Products</button>
-        <button className=" px-6 py-3 rounded">Sales</button>
+        <SideBarButton href="/products">
+          <ShoppingCart size={20} />
+          Produtos
+        </SideBarButton>
+        <SideBarButton href="/sales">
+          <BadgeDollarSign size={20} />
+          Vendas
+        </SideBarButton>
       </div>
     </div>
   );
