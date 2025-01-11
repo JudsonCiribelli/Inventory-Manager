@@ -13,7 +13,6 @@ const SideBarComponent = () => {
           <LayoutGrid size={20} />
           Dasboard
         </SideBarButton>
-        {/*BOTOES*/}
         <SideBarButton href="/products">
           <ShoppingCart size={20} />
           Produtos
