@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${poppins.className} antialiased`}>
-        <div className="flex gap-8">
+        <div className="flex h-full">
           <SideBarComponent />
           {children}
         </div>
