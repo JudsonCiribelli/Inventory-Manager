@@ -29,11 +29,17 @@ export const productsTableColumns: ColumnDef<Product>[] = [
     accessorKey: "status",
     header: "Status",
     cell: (row) => {
-      const product = row.row;
+      const product = row.row.original;
       const label = getStatusLabel(product.status);
       return (
-        <Badge className="gap-2 bg-green-400">
-          <CircleIcon size={10} />
+        <Badge
+          className="gap-2 bg-green-400"
+          variant={label === "Em estoque" ? "default" : "outline"}
+        >
+          <CircleIcon
+            size={10}
+            className={`{${label === "Em estoque" ? "fill-primary-foreground" : "fill-destructive-foreground"}`}
+          />
           {label}
         </Badge>
       );

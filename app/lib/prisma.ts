@@ -1,9 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-
 declare global {
   var cachedPrisma: ReturnType<typeof createPrismaClient>;
 }
-
 const createPrismaClient = () => {
   return new PrismaClient().$extends({
     result: {
@@ -21,7 +19,6 @@ const createPrismaClient = () => {
     },
   });
 };
-
 let prisma: ReturnType<typeof createPrismaClient>;
 if (process.env.NODE_ENV === "production") {
   prisma = createPrismaClient();
