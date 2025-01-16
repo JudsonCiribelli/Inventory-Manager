@@ -6,7 +6,6 @@ import { getProducts } from "../_data-acess/product/get-products";
 
 const ProductsPage = async () => {
   const products = await getProducts();
-
   return (
     <div className="w-full space-y-8 p-8">
       {/* ESQUERDA */}
@@ -22,7 +21,10 @@ const ProductsPage = async () => {
           Novo Produto
         </Button>
       </div>
-      <DataTable columns={productsTableColumns} data={products} />
+      <DataTable
+        columns={productsTableColumns}
+        data={JSON.parse(JSON.stringify(products))}
+      />
     </div>
   );
 };
