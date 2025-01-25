@@ -2,7 +2,7 @@ import { DataTable } from "../Components/ui/data-table";
 import { getProducts } from "../_data-acess/product/get-products";
 //Components
 import { productsTableColumns } from "./_Components/TableColumns-Component/tableColumnsComponent";
-import AddProductsButton from "./_Components/Add-Products-Button-Component/addProductsButtonComponent";
+import AddProductsButton from "./_Components/Add-Products-Button-Component/createProductsButtonComponent";
 
 export const dynamic = "force-dynamic";
 const ProductsPage = async () => {

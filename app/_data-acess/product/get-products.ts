@@ -1,3 +1,4 @@
+"use server-only";
 import { db } from "@/app/lib/prisma";
 import { Product } from "@prisma/client";
 
