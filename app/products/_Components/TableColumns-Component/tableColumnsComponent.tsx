@@ -1,5 +1,4 @@
 "use client";
-
 import { Product } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/app/Components/ui/badge";
@@ -19,6 +18,11 @@ import {
   DropdownMenuTrigger,
 } from "@/app/Components/ui/dropdown-menu";
 import { Button } from "@/app/Components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+} from "@/app/Components/ui/alert-dialog";
+import DeleteProductDialogContent from "../Delete-Dialog/deleteDialogProdutcContent";
 
 const getStatusLabel = (status: string) => {
   if (status === "IN_STOCK") {
@@ -66,32 +70,37 @@ export const productsTableColumns: ColumnDef<Product>[] = [
     cell: (row) => {
       const product = row.row.original;
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost">
-              <MoreHorizontalIcon size={16} />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              className="pointer cursor-pointer"
-              onClick={() => navigator.clipboard.writeText(product.id)}
-            >
-              <ClipboardIcon size={16} />
-              Copiar ID
-            </DropdownMenuItem>
-            <DropdownMenuItem className="pointer cursor-pointer">
-              <EditIcon size={16} />
-              Editar
-            </DropdownMenuItem>
-            <DropdownMenuItem className="pointer cursor-pointer">
-              <TrashIcon size={16} />
-              Deletar
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <AlertDialog>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost">
+                <MoreHorizontalIcon size={16} />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Ações</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                className="pointer cursor-pointer"
+                onClick={() => navigator.clipboard.writeText(product.id)}
+              >
+                <ClipboardIcon size={16} />
+                Copiar ID
+              </DropdownMenuItem>
+              <DropdownMenuItem className="pointer cursor-pointer">
+                <EditIcon size={16} />
+                Editar
+              </DropdownMenuItem>
+              <AlertDialogTrigger asChild>
+                <DropdownMenuItem className="pointer cursor-pointer">
+                  <TrashIcon size={16} />
+                  Deletar
+                </DropdownMenuItem>
+              </AlertDialogTrigger>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DeleteProductDialogContent productId={product.id} />
+        </AlertDialog>
       );
     },
   },
