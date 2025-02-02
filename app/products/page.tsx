@@ -4,7 +4,6 @@ import { getProducts } from "../_data-acess/product/get-products";
 import { productsTableColumns } from "./_Components/TableColumns-Component/tableColumnsComponent";
 import AddProductsButton from "./_Components/Add-Products-Button-Component/createProductsButtonComponent";
 
-export const dynamic = "force-dynamic";
 const ProductsPage = async () => {
   const products = await getProducts();
 
