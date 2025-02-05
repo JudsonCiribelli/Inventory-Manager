@@ -14,6 +14,7 @@ import { Input } from "@/app/Components/ui/input";
 import {
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
 } from "@/app/Components/ui/sheet";
@@ -33,8 +34,10 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { PlusIcon } from "lucide-react";
+import { CheckIcon, PlusIcon } from "lucide-react";
 import SalesTableDropdownMenu from "../Sales-Table-Dropdown-Menu/salesTableDropdownMenu";
+import { createSale } from "@/app/_actions/sales/create-sale";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   productId: z.string().uuid({
@@ -48,6 +51,7 @@ type FormSchema = z.infer<typeof formSchema>;
 interface UpsertSheetContentProps {
   productOptions: ComboboxOption[];
   products: Product[];
+  onSubmitSuccess: () => void;
 }
 interface SelectedProducts {
   id: string;
@@ -58,6 +62,7 @@ interface SelectedProducts {
 const UpsertSheetContent = ({
   productOptions,
   products,
+  onSubmitSuccess,
 }: UpsertSheetContentProps) => {
   const [selectedProducts, setSelectedProduts] = useState<SelectedProducts[]>(
     [],
@@ -127,6 +132,21 @@ const UpsertSheetContent = ({
     setSelectedProduts((currentProducts) => {
       return currentProducts.filter((product) => product.id !== productId);
     });
+  };
+
+  const onSubmitSale = async () => {
+    try {
+      await createSale({
+        products: selectedProducts.map((product) => ({
+          id: product.id,
+          quantity: product.quantity,
+        })),
+      });
+      toast.success("Venda realizada com sucesso!");
+      onSubmitSuccess();
+    } catch (error) {
+      toast.error("Erro ao realizar venda.");
+    }
   };
 
   return (
@@ -217,6 +237,16 @@ const UpsertSheetContent = ({
           </TableRow>
         </TableFooter>
       </Table>
+      <SheetFooter>
+        <Button
+          onClick={onSubmitSale}
+          className="mt-2 w-full gap-2"
+          disabled={selectedProducts.length === 0}
+        >
+          <CheckIcon size={20} />
+          Finalizar venda
+        </Button>
+      </SheetFooter>
     </SheetContent>
   );
 };
