@@ -15,7 +15,7 @@ const AddProductsButton = () => {
           Novo Produto
         </Button>
       </DialogTrigger>
-      <UpserProductDialogContent onSuccess={() => setDialogIsOpen(false)} />
+      <UpserProductDialogContent setDialogIsOpen={setDialogIsOpen} />
     </Dialog>
   );
 };
