@@ -33,9 +33,8 @@ import { Product } from "@prisma/client";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { CheckIcon, PlusIcon } from "lucide-react";
-import SalesTableDropdownMenu from "../Sales-Table-Dropdown-Menu/salesTableDropdownMenu";
+import UpsertSaleTableDropdownMenu from "../Sales-Table-Dropdown-Menu/salesTableDropdownMenu";
 import { createSale } from "@/app/_actions/sales/create-sale";
 import { toast } from "sonner";
 import { useAction } from "next-safe-action/hooks";
@@ -227,7 +226,10 @@ const UpsertSheetContent = ({
                 {formatCurrency(product.price * product.quantity)}
               </TableCell>
               <TableCell>
-                <SalesTableDropdownMenu product={product} onDelete={onDelete} />
+                <UpsertSaleTableDropdownMenu
+                  product={product}
+                  onDelete={onDelete}
+                />
               </TableCell>
             </TableRow>
           ))}
