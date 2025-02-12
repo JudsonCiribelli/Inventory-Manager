@@ -29,7 +29,7 @@ import {
   TableRow,
 } from "@/app/Components/ui/table";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CheckIcon, PlusIcon } from "lucide-react";
@@ -58,12 +58,13 @@ interface UpsertSheetContentProps {
   saleId?: string;
   productOptions: ComboboxOption[];
   products: ProductDto[];
-  onSubmitSuccess: () => void;
+  setSheetIsOpen: Dispatch<SetStateAction<boolean>>;
   defaultSelectedProducts?: SelectedProducts[];
 }
 const UpsertSheetContent = ({
   saleId,
   productOptions,
+  setSheetIsOpen,
   products,
   defaultSelectedProducts,
 }: UpsertSheetContentProps) => {
@@ -77,6 +78,7 @@ const UpsertSheetContent = ({
     },
     onSuccess: () => {
       toast.success("Venda realizada com sucesso.");
+      setSheetIsOpen(false);
     },
   });
   const form = useForm<FormSchema>({

@@ -11,7 +11,7 @@ export const upsertSale = actionClient
     const isUpdate = Boolean(id);
     await db.$transaction(async (trx) => {
       if (isUpdate) {
-        const existingSale = trx.sale.findUnique({
+        const existingSale = await trx.sale.findUnique({
           where: { id },
           include: { saleProducts: true },
         });
@@ -41,17 +41,15 @@ export const upsertSale = actionClient
             id: product.id,
           },
         });
-
         if (!productFromDb) {
           returnValidationErrors(upsertSaleSchema, {
-            _errors: ["Product not found"],
+            _errors: ["Product not found."],
           });
         }
-
         const productIsOutOfStock = product.quantity > productFromDb.stock;
         if (productIsOutOfStock) {
           returnValidationErrors(upsertSaleSchema, {
-            _errors: ["Product out of stock"],
+            _errors: ["Product out of stock."],
           });
         }
         await trx.saleProduct.create({

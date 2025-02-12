@@ -30,7 +30,7 @@ export const getSales = async (): Promise<SalesDto[]> => {
     date: sale.date,
     productName: sale.saleProducts
       .map((saleProduct) => saleProduct.product.name)
-      .join(" "),
+      .join(" • "),
     totalAmount: sale.saleProducts.reduce(
       (acc, saleProduct) =>
         acc + saleProduct.quantity * Number(saleProduct.unitPrice),
