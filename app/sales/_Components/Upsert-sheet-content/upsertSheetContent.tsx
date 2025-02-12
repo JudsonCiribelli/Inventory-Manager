@@ -29,16 +29,16 @@ import {
   TableRow,
 } from "@/app/Components/ui/table";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Product } from "@prisma/client";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { CheckIcon, PlusIcon } from "lucide-react";
 import UpsertSaleTableDropdownMenu from "../Sales-Table-Dropdown-Menu/salesTableDropdownMenu";
-import { createSale } from "@/app/_actions/sales/create-sale";
+import { upsertSale } from "@/app/_actions/sales/upsert-sale";
 import { toast } from "sonner";
 import { useAction } from "next-safe-action/hooks";
 import { flattenValidationErrors } from "next-safe-action";
+import { ProductDto } from "@/app/_data-acess/product/get-products";
 
 const formSchema = z.object({
   productId: z.string().uuid({
@@ -48,26 +48,29 @@ const formSchema = z.object({
 });
 
 type FormSchema = z.infer<typeof formSchema>;
-
-interface UpsertSheetContentProps {
-  productOptions: ComboboxOption[];
-  products: Product[];
-  onSubmitSuccess: () => void;
-}
 interface SelectedProducts {
   id: string;
   name: string;
   price: number;
   quantity: number;
 }
+interface UpsertSheetContentProps {
+  saleId?: string;
+  productOptions: ComboboxOption[];
+  products: ProductDto[];
+  onSubmitSuccess: () => void;
+  defaultSelectedProducts?: SelectedProducts[];
+}
 const UpsertSheetContent = ({
+  saleId,
   productOptions,
   products,
+  defaultSelectedProducts,
 }: UpsertSheetContentProps) => {
   const [selectedProducts, setSelectedProduts] = useState<SelectedProducts[]>(
-    [],
+    defaultSelectedProducts ?? [],
   );
-  const { execute: executeCreateSale } = useAction(createSale, {
+  const { execute: executeUpsertSale } = useAction(upsertSale, {
     onError: ({ error: { validationErrors, serverError } }) => {
       const flattenErrors = flattenValidationErrors(validationErrors);
       toast.error(serverError ?? flattenErrors.formErrors[0]);
@@ -143,7 +146,8 @@ const UpsertSheetContent = ({
   };
 
   const onSubmitSale = async () => {
-    executeCreateSale({
+    executeUpsertSale({
+      id: saleId,
       products: selectedProducts.map((product) => ({
         id: product.id,
         quantity: product.quantity,

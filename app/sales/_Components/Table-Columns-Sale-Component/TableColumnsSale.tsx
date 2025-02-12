@@ -3,8 +3,15 @@ import { SalesDto } from "@/app/_data-acess/sales/get-sales";
 import { formatCurrency } from "@/app/_helpers/Currency/currency";
 import { ColumnDef } from "@tanstack/react-table";
 import SalesTableDropdownMenu from "../Table-Dropdown-Menu/tableDropdownMenu";
+import { ProductDto } from "@/app/_data-acess/product/get-products";
+import { ComboboxOption } from "@/app/Components/ui/combobox";
 
-export const saleTableColumns: ColumnDef<SalesDto>[] = [
+interface SaleTableColumn extends SalesDto {
+  products: ProductDto[];
+  productOptions: ComboboxOption[];
+}
+
+export const saleTableColumns: ColumnDef<SaleTableColumn>[] = [
   {
     accessorKey: "productName",
     header: "Produtos",
@@ -32,7 +39,11 @@ export const saleTableColumns: ColumnDef<SalesDto>[] = [
   {
     header: "Ações",
     cell: ({ row: { original: sale } }) => (
-      <SalesTableDropdownMenu sale={sale} />
+      <SalesTableDropdownMenu
+        sale={sale}
+        products={sale.products}
+        productOptions={sale.productOptions}
+      />
     ),
   },
 ];

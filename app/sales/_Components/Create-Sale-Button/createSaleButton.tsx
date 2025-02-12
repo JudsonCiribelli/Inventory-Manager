@@ -7,11 +7,11 @@ import { Product } from "@prisma/client";
 import { useState } from "react";
 import { PlusIcon } from "lucide-react";
 
-interface CreateSaleButtonProps {
+interface UpsertSaleButtonProps {
   productOptions: ComboboxOption[];
   products: Product[];
 }
-const CreateSaleButton = (props: CreateSaleButtonProps) => {
+const UpsertSaleButton = (props: UpsertSaleButtonProps) => {
   const [sheetIsOpen, setSheetIsOpen] = useState(false);
   return (
     <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
@@ -29,4 +29,4 @@ const CreateSaleButton = (props: CreateSaleButtonProps) => {
   );
 };
 
-export default CreateSaleButton;
+export default UpsertSaleButton;
