@@ -3,22 +3,27 @@ import { getProducts } from "../_data-acess/product/get-products";
 //Components
 import { productsTableColumns } from "./_Components/Table-Columns-Product-Component/tableColumnsComponent";
 import AddProductsButton from "./_Components/Add-Products-Button-Component/createProductsButtonComponent";
+import HeaderComponent, {
+  HeaderLeft,
+  HeaderRight,
+  HeaderSubTitle,
+  HeaderTitle,
+} from "../Components/Header-Component/HeaderComponent";
 
 const ProductsPage = async () => {
   const products = await getProducts();
 
   return (
     <div className="w-full space-y-8 p-8">
-      {/* ESQUERDA */}
-      <div className="flex w-full items-center justify-between">
-        <div className="space-y-1">
-          <span className="text-xl font-semibold text-slate-500">
-            Gestão de Produtos
-          </span>
-          <h2 className="text-gray">Produtos</h2>
-        </div>
-        <AddProductsButton />
-      </div>
+      <HeaderComponent>
+        <HeaderLeft>
+          <HeaderTitle>Gestão de Produtos</HeaderTitle>
+          <HeaderSubTitle>Produtos</HeaderSubTitle>
+        </HeaderLeft>
+        <HeaderRight>
+          <AddProductsButton />
+        </HeaderRight>
+      </HeaderComponent>
       <DataTable columns={productsTableColumns} data={products} />
     </div>
   );
