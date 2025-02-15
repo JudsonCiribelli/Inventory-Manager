@@ -1,4 +1,6 @@
+import "server-only";
 import { db } from "@/app/lib/prisma";
+import dayjs from "dayjs";
 
 interface DashboardDto {
   totalRevenue: number;
@@ -6,9 +8,15 @@ interface DashboardDto {
   totalSales: number;
   totalStock: number;
   totalProducts: number;
+  totalAt14daysRevenue: string;
 }
-
+export interface DayTodayRevenue {
+  day: string;
+  totalRevenue: number;
+}
 export const getDashboard = async (): Promise<DashboardDto> => {
+  const today = dayjs().endOf("day").toDate();
+  console.log(today);
   const totalRevenuePromise = db.saleProduct.aggregate({
     _sum: {
       unitPrice: true,
@@ -50,5 +58,6 @@ export const getDashboard = async (): Promise<DashboardDto> => {
     totalSales,
     totalStock: Number(totalStock._sum.stock),
     totalProducts,
+    totalAt14daysRevenue: "Ola",
   };
 };

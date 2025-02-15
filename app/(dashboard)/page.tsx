@@ -16,12 +16,19 @@ import SummaryCard, {
 } from "./_Components/Summary-Card-Component/summaryCard";
 import { getDashboard } from "../_data-acess/dasboard/get-dashboard";
 import { formatCurrency } from "../_helpers/Currency/currency";
+import RevenueChart from "./_Components/Revenue-Charts-Component/revenueChart";
 
 const Home = async () => {
-  const { totalRevenue, todayRevenue, totalSales, totalStock, totalProducts } =
-    await getDashboard();
+  const {
+    totalRevenue,
+    todayRevenue,
+    totalSales,
+    totalStock,
+    totalProducts,
+    totalAt14daysRevenue,
+  } = await getDashboard();
   return (
-    <div className="w-full space-y-8 p-8">
+    <div className="flex w-full flex-col space-y-8 p-8">
       <HeaderComponent>
         <HeaderLeft>
           <HeaderTitle>Dashboard</HeaderTitle>
@@ -69,6 +76,13 @@ const Home = async () => {
           <SummaryCartTitle>Produtos</SummaryCartTitle>
           <SummaryCardValue>{totalProducts}</SummaryCardValue>
         </SummaryCard>
+      </div>
+
+      <div className="flex h-full flex-col overflow-hidden rounded-xl bg-white p-6">
+        <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-md bg-emerald-500 bg-opacity-10"></div>
+        <p className="text-lg font-semibold text-slate-900">Receita </p>
+        <p className="text-sm text-slate-400">Últimos 14 dias</p>
+        <RevenueChart data={totalAt14daysRevenue} />
       </div>
     </div>
   );
