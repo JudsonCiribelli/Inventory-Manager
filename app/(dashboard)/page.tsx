@@ -79,7 +79,6 @@ const Home = async () => {
       </div>
 
       <div className="flex h-full flex-col overflow-hidden rounded-xl bg-white p-6">
-        <div className="mb-2 flex h-9 w-9 items-center justify-center rounded-md bg-emerald-500 bg-opacity-10"></div>
         <p className="text-lg font-semibold text-slate-900">Receita </p>
         <p className="text-sm text-slate-400">Últimos 14 dias</p>
         <RevenueChart data={totalAt14daysRevenue} />
