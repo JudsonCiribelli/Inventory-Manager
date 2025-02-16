@@ -29,7 +29,8 @@ export const getDashboard = async (): Promise<DashboardDto> => {
     >(
       `SELECT SUM("unitPrice" * "quantity") as "totalRevenue"
       FROM "SaleProduct"
-      WHERE "createdAt" >= $1 AND "createdAt" <= $2
+      JOIN "Sale" ON "SaleProduct"."saleId" = "Sale"."id"
+      WHERE "Sale"."date" >= $1 AND "Sale"."date" <= $2
       `,
       day.startOf("day").toDate(),
       day.endOf("day").toDate(),
@@ -40,12 +41,15 @@ export const getDashboard = async (): Promise<DashboardDto> => {
     });
   }
 
-  const totalRevenueQuery = `SELECT SUM("unitPrice" * "quantity" ) as "totalRevenue"
-    FROM "SaleProduct"`;
+  const totalRevenueQuery = `SELECT SUM("SaleProduct"."unitPrice" * "SaleProduct"."quantity" ) as "totalRevenue"
+    FROM "SaleProduct"
+    JOIN "Sale" ON "SaleProduct"."saleId" = "Sale"."id"
+    `;
 
-  const todayRevenueQuery = `SELECT SUM("unitPrice" * "quantity") as "todayRevenue"
+  const todayRevenueQuery = `SELECT SUM("SaleProduct"."unitPrice" * "SaleProduct"."quantity") as "todayRevenue"
       FROM "SaleProduct"
-      WHERE "createdAt" >= $1 AND "createdAt" <= $2  
+      JOIN "Sale" ON "SaleProduct"."saleId" = "Sale"."id" 
+      WHERE "Sale"."date" >= $1 AND "Sale"."date" <= $2
   `;
   const startOfDay = new Date(new Date().setHours(0, 0, 0, 0));
   const endOfDay = new Date(new Date().setHours(23, 59, 59, 999));
