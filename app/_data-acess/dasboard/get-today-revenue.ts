@@ -1,3 +1,4 @@
+import "server-only";
 import { db } from "@/app/lib/prisma";
 
 export const getTodayRevenue = async (): Promise<number> => {
