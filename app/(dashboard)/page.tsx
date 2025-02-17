@@ -18,10 +18,12 @@ import { getDashboard } from "../_data-acess/dasboard/get-dashboard";
 import { formatCurrency } from "../_helpers/Currency/currency";
 import RevenueChart from "./_Components/Revenue-Charts-Component/revenueChart";
 import MostSoldProductsItem from "./_Components/Most-Sold-Products-Item-Component/mostSoldProductsItem";
+import TotalRevenueCart from "./_Components/Total-Revenue-Cart-Component/totalRevenueCard";
+import { Suspense } from "react";
+import { Skeleton } from "../Components/ui/skeleton";
 
 const Home = async () => {
   const {
-    totalRevenue,
     todayRevenue,
     totalSales,
     totalStock,
@@ -38,13 +40,9 @@ const Home = async () => {
         </HeaderLeft>
       </HeaderComponent>
       <div className="grid grid-cols-2 gap-6">
-        <SummaryCard>
-          <SummaryCardIcon>
-            <DollarSign />
-          </SummaryCardIcon>
-          <SummaryCartTitle>Receita Total</SummaryCartTitle>
-          <SummaryCardValue>{formatCurrency(totalRevenue)}</SummaryCardValue>
-        </SummaryCard>
+        <Suspense fallback={<Skeleton className="bg-white opacity-75" />}>
+          <TotalRevenueCart />
+        </Suspense>
 
         <SummaryCard>
           <SummaryCardIcon>
