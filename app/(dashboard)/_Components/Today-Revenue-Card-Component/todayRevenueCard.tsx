@@ -5,8 +5,10 @@ import SummaryCard, {
   SummaryCartTitle,
 } from "../Summary-Card-Component/summaryCard";
 import { formatCurrency } from "@/app/_helpers/Currency/currency";
+import { getTodayRevenue } from "@/app/_data-acess/dasboard/get-today-revenue";
 
-const TodayRevenueCard = () => {
+const TodayRevenueCard = async () => {
+  const todayRevenue = await getTodayRevenue();
   return (
     <SummaryCard>
       <SummaryCardIcon>
