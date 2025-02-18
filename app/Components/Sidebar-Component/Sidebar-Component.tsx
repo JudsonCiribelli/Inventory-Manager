@@ -6,7 +6,7 @@ const SideBarComponent = () => {
   return (
     <div className="h-screen w-64 bg-white">
       <div className="px-8 py-6">
-        <h1 className="text-2xl font-bold">STOCKLY</h1>
+        <h1 className="text-2xl font-bold text-slate-500">INVENTORY</h1>
       </div>
       <div className="flex flex-col gap-1 p-2">
         <SideBarButton href="/">
