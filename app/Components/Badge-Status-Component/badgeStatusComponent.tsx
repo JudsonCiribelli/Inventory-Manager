@@ -15,7 +15,7 @@ const BadgeStatus = ({ status }: BadgeStatusProps) => {
   const label = getStatusLabel(status);
   return (
     <Badge
-      className="gap-1.5 bg-green-400"
+      className="gap-1.5 bg-slate-500"
       variant={label === "Em estoque" ? "default" : "outline"}
     >
       {label}
