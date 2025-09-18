@@ -219,11 +219,11 @@ const UpsertSheetContent = ({
               </FormItem>
             )}
           />
+          <Button type="submit" className="w-full gap-2" variant="secondary">
+            <PlusIcon />
+            Adicionar produto à venda
+          </Button>
         </form>
-        <Button type="submit" className="w-full gap-2" variant="secondary">
-          <PlusIcon />
-          Adicionar produto à venda
-        </Button>
       </Form>
       <Table>
         <TableCaption>Lista dos produtos adicionados à venda.</TableCaption>
